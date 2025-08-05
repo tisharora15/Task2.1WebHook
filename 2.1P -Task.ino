@@ -38,10 +38,10 @@ void loop() {
   temps[i] = t;                     // Store temperature in array
   i = (i + 1) % 5;                  // Move to next index, cycle back to 0 after 5 readings
 
-  if (i == 0) {                     // Once 5 readings are taken
+  if (i == 0) {                     // 5 readings are taken then average is calculated 
     float sum = 0;
-    for (int j = 0; j < 5; j++) sum += temps[j];  // Add all readings
-    float avg = sum / 5.0;                         // Calculate average
+    for (int j = 0; j < 5; j++) sum += temps[j];  
+    float avg = sum / 5.0;                       
 
     Serial.print("Average: ");
     Serial.println(avg);
@@ -55,20 +55,15 @@ void loop() {
                    "Host: " + server + "\r\n" +
                    "Connection: close\r\n\r\n");
 
-      delay(10);  // Small pause before reading the response
-
-      // Read and print server response (optional)
-      while (client.available()) {
-        Serial.write(client.read());
-      }
-
-      client.stop();  // Close connection
+      delay(10);  
+     
+      client.stop();  
     } else {
       Serial.println("Failed to connect to server.");
     }
 
-    delay(30000);  // Wait 30 seconds before next upload (to reduce data load)
+    delay(30000);  // delay of  30 seconds before next average of temperature will be uploaded 
   } else {
-    delay(1000);   // Wait 1 second before next reading
+    delay(1000);   // delay of 1 second before next reading
   }
 }
